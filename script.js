@@ -11,44 +11,24 @@ var example1 = 'A3lice 2Bob Er1nst';
 var example2 = '2Fiona Ig7or J1amila B3ob Ali5ce';
 var example3 = 'Tes1t';
 
-function isNumeric(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-
-function getNum(str){
-    var arrNumber = [];
-    for(var i = 0; i < str.length; i++){
-        for(var j = 0; j < str[i].length; j++){
-            if (isNumeric(str[i].charAt(j))) {
-                arrNumber.push(str[i].charAt(j));
-            }
-        }
-    }
-    return arrNumber;
+function getArr(str){
+    return str.split(' ');
 }
 
-function getObject(str){
-    var getNumber = getNum(str);
-    var getArr = str.split(' ');
-    var arrObject = [];
-
-    for(var i = 0; i < getNumber.length; i++){
-        arrObject.push({key1 : getArr[i], key2 : getNumber[i]});
+function getNumber(word){
+    for(var i = 0; i < word.length; i++){
+        if (!isNaN(+word[i])){
+            return word[i];
+        }
     }
-    return arrObject;
 }
 
 function sortWords(str){
-    var sorting = getObject(str).sort (function (a,b){
-        if (a.key2 < b.key2) return -1;
+    var sortArr = getArr(str);
+    sortArr.sort(function(a, b){
+        return getNumber(a) - getNumber(b);
     });
-
-    var getSort = [];
-
-    for (var i = 0; i < sorting.length; i++){
-        getSort.push (sorting[i].key1);
-    }
-    return getSort.join(' ');
+    return sortArr.join(' ');
 }
 
 console.log (sortWords(example1));
